@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento Modelo</title>
+    <style>
+        *{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* margin-left: 20px; */
+        }
+
+        label{
+            display: block;
+            
+        }
+
+        input{
+            width: 50%;
+            height: 25%;
+            border: solid #08298A;
+            padding: 10px;
+            text-align: center;
+        }
+
+        select {
+            width: 40%;
+        }
+
+        div{
+            margin: 15px 0;
+        }
+
+        #formulario{
+            margin: auto;
+            border: solid black;
+            width: 50%;
+            text-align: center;
+        }
+
+        #cabecalho {
+            margin: auto;
+            text-align: center;
+        }
+
+        #calcular{
+            width: 100px;
+            background-color: #08298A;
+            border-radius: 25px;
+            color: white;
+            padding: 20px;
+        }
+
+        #limpar{
+            width: 100px;
+            background-color: #FA5858;
+            border-radius: 25px;
+            color: black;
+            padding: 20px;
+        }
+
+        #campo-resultado{
+            margin: auto;
+            width: 30%;
+            border: solid gray;
+            margin-bottom: 20px;
+        }
+        
+    </style>
+
+</head>
+<body>
+
+    <!-- Monte um formulário com os seguintes campos:
+    * Primeiro Número (input numérico)
+    * Operação aritimética (select com as opções de soma, subtração, multiplicação, divisão, potenciação e resto da divisão)
+    * Segundo numero (input numérico)
+    * Div para exibição do resultado da operação aritimética
+    * Botão "calcular"
+
+    Validações:
+    * Os campos de número devem estar preenchidos e com números válidos
+    * Deve ter sido selecionado uma operação aritimética válida
+    -->
+<div id="cabecalho">
+<h1>Calculadora DOM</h1>
+<p>Projeto da Aula de Liguagem de Programação - FATEC 2º Semestre de 2020</p>
+</div>
+
+<div id="formulario">
+    <H2>Calculadora</H2>
+    
+    <div>
+        <label><strong>Primeiro Número</strong></label>
+        <input id="primeiro-numero" type="text" placeholder="Digite o primeiro número">
+    </div>
+
+    <div>
+        <label><strong>Operação</strong></label>
+        <select id="operador">
+            <option disabled selected><Selecione class="">Selecione...</option>
+            <option>Soma</option>
+            <option>Subtração</option>
+            <option>Multiplicação</option>
+            <option>Divisão</option>
+            <option>Potenciação</option>
+            <option>Resto da divisão</option>
+        </select>
+    </div>
+
+    <div>
+        <label><strong>Segundo Número</strong></label>
+        <input id="segundo-numero" type="text" placeholder="Digite o segundo número">            
+    </div>
+
+    <div>
+        <button id="calcular"><b>Calcular</b></button>
+    </div>
+
+    <!-- <div>
+        <button id="limpar"><b>Limpar</b></button>
+    </div> -->
+
+    <div id="campo-resultado">
+        <p>Resultado:</p>
+        <p id="resultado"></p>
+    </div>
+</div>
+
+    
+<script>
+    //Liga o modo "chato" do JS
+    // Não deixa usar variaveis sem let ou var
+    'use strict' 
+
+const primeiroNumero = document.querySelector('#primeiro-numero')
+const segundoNumero = document.querySelector('#segundo-numero')
+const operador = document.querySelector('#operador')
+const resultado = document.querySelector('#resultado')
+const calcular = document.querySelector('#calcular')
+const limpar = document.querySelector('#limpar')
+
+function botaoClique(){
+
+    let valido = true
+
+    if(isNaN(primeiroNumero.value)){
+        alert('Primeiro número inválido')
+        primeiroNumero.focus
+        valido = false
+    }
+        else if(isNaN(segundoNumero.value)){
+            alert('Segundo número invalido')
+            segundoNumero.focus
+            valido = false
+        }
+            else if(operador.selectedIndex <= 0){
+                alert('Selecione uma operação')
+                operador.focus
+                valido = false
+            }
+    
+    let num1 = parseFloat(primeiroNumero.value)
+    let num2 = parseFloat(segundoNumero.value)
+
+    let resposta = 0
+
+    switch(operador.selectedIndex){
+        case 1: resposta += num1 + num2
+        break;
+        case 2: resposta += num1 - num2
+        break;
+        case 3: resposta += num1 * num2
+        break;
+        case 4:
+            if(segundoNumero.value == 0){
+            alert('Divisão impossivel, escolha o segundo numero diferente de 0')
+            }  
+            else resposta += num1 / num2
+        break;
+        case 5: resposta += num1 ** num2
+            break;
+        case 6: 
+            if(segundoNumero.value == 0){
+            alert('Divisão impossivel, escolha o segundo numero diferente de 0')
+            } 
+            else resposta += num1 % num2
+        break;
+    }   
+
+    if(valido == true){
+    resultado.innerHTML = resposta  
+    } 
+}
+
+calcular.addEventListener('click', botaoClique)
+
+// function botaoLimpar (){
+//         primeiroNumero.innerHTML = ''
+//         operador.innerHTML = ''
+//         segundoNumero.innerHTML = ''
+//         resultado.innerHTML = ''
+// }
+
+// limpar.addEventListener('click', botaoLimpar)
+
+</script>    
+</body>
+</html>
